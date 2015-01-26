@@ -1,0 +1,24 @@
+{
+  "name": "encoda/ss-image-helpers",
+  "description": "SilverStripe View Helpers module",
+  "type": "silverstripe-module",
+  "homepage": "http://github.com/encoda/ss-image-helpers",
+  "keywords": ["silverstripe", "image", "helper"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Encoda",
+      "email": "encoda@encoda.com.br",
+      "homepage": "http://www.encoda.com.br"
+    }
+  ],
+  "support": {
+    "issues": "http://github.com/encoda/ss-image-helpers/issues"
+  },
+  "require": {
+    "silverstripe/framework": "~3.1"
+  },
+  "extra": {
+    "installer-name": "ss-image-helpers"
+  }
+}

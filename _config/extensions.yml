@@ -1,0 +1,6 @@
+---
+Name: ssimagehelpersextensions
+---
+Page_Controller:
+  extensions:
+    - SSImageHelpersExtension
