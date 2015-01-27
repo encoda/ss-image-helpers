@@ -2,28 +2,58 @@
 
 class SSImageHelpersExtension extends Extension {
 
-  public function ImagePath($image_name) {
-    return $this->getImageInstance($image_name)->getAbsoluteURL();
+  protected static $image_paths = array();
+
+  // Instance Methods
+
+  public function ImageAbsoluteUrl($image_name) {
+    return $this->getImageInstance($image_name)->getAbsoluteUrl();
   }
 
   public function ImageTag($image_name) {
     return $this->getImageInstance($image_name)->getTag();
   }
 
-  // Protected
-
-  protected function getImageInstance($image_name) {
-    $image = Injector::inst()->get('Image');
-    $image->fileName = $this->ThemeDir() . '/images/' . $image_name;
-    return $image;
+  public function ImageUrl($image_name) {
+    return $this->getImageInstance($image_name)->getUrl();
   }
 
-  protected function ThemeDir($subtheme = null) {
-    if ($theme = SSViewer::current_theme()) {
-      return "themes/$theme" . ($subtheme ? "_$subtheme" : "");
-    } else {
-      return project();
+  // Static Methods
+
+  public static function add_image_path($paths = null) {
+    switch (gettype($paths)) {
+      case 'string':
+        array_push(static::$image_paths, $paths);
+        break;
+      case 'array':
+        foreach ($paths as $path)
+          static::add_image_path($path);
     }
+
+    array_unique(static::$image_paths);
+  }
+
+  // Private Instance Methods
+
+  private function getImageInstance($image_name) {
+    $image = Injector::inst()->get('Image');
+
+    if ($image_path = $this->searchForFileInPaths($image_name)) {
+      $image->fileName = $image_path;
+      return $image;
+    } else {
+      throw new Exception("SSImageHelpers Error: Image not found. Make sure the path to the image is included in the image_paths");
+    }
+  }
+
+  private function searchForFileInPaths($file_name) {
+    foreach (static::$image_paths as $path) {
+      if (substr($path, -1) != "/") $path .= "/";
+      $file_path = $path . $file_name;
+      $search_path = Director::baseFolder() . ($path[0] == "/" ? "" : "/") . $file_path;
+      if (file_exists($search_path)) return $file_path;
+    }
+    return false;
   }
 
 }
