@@ -6,7 +6,7 @@ Works fine with [SS-Image-Min](https://github.com/encoda/ss-image-min).
 
 ## Requirements
 
-Tested on SilverStrip 3.1
+SilverStripe Framework 3.0+
 
 ## Installation
 
