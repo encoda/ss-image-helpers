@@ -42,7 +42,7 @@ class SSImageHelpersExtension extends Extension {
       $image->fileName = $image_path;
       return $image;
     } else {
-      throw new Exception("SSImageHelpers Error: Image not found. Make sure the path to the image is included in the image_paths");
+      throw new Exception('Could not find "' . $image_name . '". You may either mispelled it or it\'s location is not included in the SSImageHelpers::$image_paths.');
     }
   }
 
