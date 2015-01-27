@@ -10,6 +10,10 @@ class SSImageHelpersExtension extends Extension {
     return $this->getImageInstance($image_name)->getAbsoluteUrl();
   }
 
+  public function ImageRelativeLink($image_name) {
+    return $this->getImageInstance($image_name)->RelativeLink();
+  }
+
   public function ImageTag($image_name) {
     return $this->getImageInstance($image_name)->getTag();
   }
